@@ -3,3 +3,6 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+declare module '@/api' {
+  export const API_URL: string
+}
