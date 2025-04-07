@@ -13,6 +13,7 @@
 
 <script setup lang="ts">
 import { ref, watch, computed } from 'vue'
+import { API_URL } from '@/api'
 
 const props = defineProps<{
   images: string[]
