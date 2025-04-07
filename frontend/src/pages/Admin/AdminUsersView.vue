@@ -52,6 +52,7 @@ import axios from 'axios'
 import { jwtDecode } from 'jwt-decode'
 import { useToastStore } from '@/store/toastStore'
 import AdminLayout from '@/layouts/AdminLayout.vue'
+import { API_URL } from '@/api'
 
 interface User {
   _id: string
@@ -75,7 +76,7 @@ if (token) {
 // Charger les utilisateurs
 const fetchUsers = async () => {
   try {
-    const res = await axios.get('http://localhost:5000/api/auth/users', {
+    const res = await axios.get('${API_URL}/api/auth/users', {
       headers: { Authorization: `Bearer ${token}` }
     })
     users.value = res.data
@@ -88,7 +89,7 @@ const fetchUsers = async () => {
 // Créer un nouvel utilisateur
 const createUser = async () => {
   try {
-    await axios.post('http://localhost:5000/api/auth/users', form.value, {
+    await axios.post('${API_URL}/api/auth/users', form.value, {
       headers: { Authorization: `Bearer ${token}` }
     })
     form.value.email = ''
@@ -107,7 +108,7 @@ const deleteUser = async (userId: string) => {
   if (!confirm('Supprimer cet utilisateur ?')) return
 
   try {
-    await axios.delete(`http://localhost:5000/api/auth/users/${userId}`, {
+    await axios.delete(`${API_URL}/api/auth/users/${userId}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     toast.show('Utilisateur supprimé avec succès', 'success')

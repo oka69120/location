@@ -25,7 +25,7 @@ defineProps<{
 }>()
 
 const getImage = (imgs: string[]) =>
-  imgs.length ? `http://localhost:5000/${imgs[0]}` : ''
+  imgs.length ? `${API_URL}/${imgs[0]}` : ''
 </script>
 
 <style scoped>

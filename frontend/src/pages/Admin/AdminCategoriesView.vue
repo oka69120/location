@@ -31,6 +31,7 @@ import AdminLayout from '@/layouts/AdminLayout.vue'
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { useToastStore } from '@/store/toastStore'
+import { API_URL } from '@/api'
 
 const toast = useToastStore()
 
@@ -46,7 +47,7 @@ const editingId = ref<string | null>(null)
 
 const fetchCategories = async () => {
   try {
-    const res = await axios.get('http://localhost:5000/api/categories/with-count')
+    const res = await axios.get('${API_URL}/api/categories/with-count')
     categories.value = res.data
   } catch (err) {
     toast.show('Erreur chargement catégories ❌', 'error')
@@ -59,14 +60,14 @@ const submitCategory = async () => {
     const token = localStorage.getItem('token')
     if (editingId.value) {
       await axios.put(
-        `http://localhost:5000/api/categories/${editingId.value}`,
+        `${API_URL}/api/categories/${editingId.value}`,
         { name: newCategory.value },
         { headers: { Authorization: `Bearer ${token}` } }
       )
       toast.show('Catégorie modifiée ✅', 'success')
     } else {
       await axios.post(
-        'http://localhost:5000/api/categories',
+        '${API_URL}/api/categories',
         { name: newCategory.value },
         { headers: { Authorization: `Bearer ${token}` } }
       )
@@ -89,7 +90,7 @@ const deleteCategory = async (id: string) => {
   if (!confirm('Supprimer cette catégorie ?')) return
   try {
     const token = localStorage.getItem('token')
-    await axios.delete(`http://localhost:5000/api/categories/${id}`, {
+    await axios.delete(`${API_URL}/api/categories/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
     toast.show('Catégorie supprimée ✅', 'success')

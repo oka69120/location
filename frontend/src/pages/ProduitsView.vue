@@ -52,6 +52,7 @@
 import { ref, computed, onMounted } from 'vue'
 import axios from 'axios'
 import ProductCard from '@/components/ProductCard.vue'
+import { API_URL } from '@/api'
 
 interface Product {
   _id: string
@@ -70,12 +71,12 @@ const fetchProducts = async () => {
   if (searchTerm.value) query.append('search', searchTerm.value)
   if (selectedCategory.value) query.append('category', selectedCategory.value)
 
-  const res = await axios.get(`http://localhost:5000/api/products?${query.toString()}`)
+  const res = await axios.get(`${API_URL}/api/products?${query.toString()}`)
   products.value = res.data.products
 }
 
 const fetchCategories = async () => {
-  const res = await axios.get('http://localhost:5000/api/categories')
+  const res = await axios.get('${API_URL}/api/categories')
   categories.value = res.data
 }
 
@@ -85,7 +86,7 @@ const currentImages = ref<string[]>([])
 const currentIndex = ref(0)
 
 const currentImageUrl = computed(() =>
-  currentImages.value.length ? `http://localhost:5000/${currentImages.value[currentIndex.value]}` : ''
+  currentImages.value.length ? `${API_URL}/${currentImages.value[currentIndex.value]}` : ''
 )
 
 const openGallery = (product: Product) => {

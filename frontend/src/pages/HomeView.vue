@@ -101,6 +101,7 @@
 </template>
 
 <script setup lang="ts">
+import { API_URL } from '@/api'
 import { ref, onMounted, computed } from 'vue'
 import axios from 'axios'
 import ProductCard from '@/components/ProductCard.vue'
@@ -117,19 +118,19 @@ const featuredProducts = ref<Product[]>([])
 const highlightedProducts = ref<Product[]>([])
 
 const fetchFeatured = async () => {
-  const res = await axios.get('http://localhost:5000/api/products?featured=true&limit=4')
+  const res = await axios.get('${API_URL}/api/products?featured=true&limit=4')
   featuredProducts.value = res.data.products
 }
 
 const fetchHighlighted = async () => {
-  const res = await axios.get('http://localhost:5000/api/products?highlighted=true&limit=4')
+  const res = await axios.get('${API_URL}/api/products?highlighted=true&limit=4')
   highlightedProducts.value = res.data.products
 }
 
 const serviceProducts = ref<Product[]>([])
 
 const fetchServices = async () => {
-  const res = await axios.get('http://localhost:5000/api/products?category=services&limit=4')
+  const res = await axios.get('${API_URL}/api/products?category=services&limit=4')
   serviceProducts.value = res.data.products
 }
 
@@ -144,7 +145,7 @@ const currentImages = ref<string[]>([])
 const currentIndex = ref(0)
 
 const currentImageUrl = computed(() =>
-  currentImages.value.length ? `http://localhost:5000/${currentImages.value[currentIndex.value]}` : ''
+  currentImages.value.length ? `${API_URL}/${currentImages.value[currentIndex.value]}` : ''
 )
 
 const openGallery = (product: Product) => {

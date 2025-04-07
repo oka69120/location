@@ -95,6 +95,7 @@ import { ref, watch, onMounted } from 'vue'
 import axios from 'axios'
 import { useToast } from 'vue-toastification'
 import AdminLayout from '@/layouts/AdminLayout.vue'
+import { API_URL } from '@/api'
 
 const toast = useToast()
 
@@ -143,7 +144,7 @@ const newImages = ref<File[]>([])
 const imagesToKeep = ref<string[]>([])
 
 const getImage = (imgs: string[]) =>
-  imgs.length ? `http://localhost:5000/${imgs[0]}` : ''
+  imgs.length ? `${API_URL}/${imgs[0]}` : ''
 
   const fetchProducts = async () => {
   const params = {
@@ -153,7 +154,7 @@ const getImage = (imgs: string[]) =>
     limit
   }
 
-  const res = await axios.get('http://localhost:5000/api/products', { params })
+  const res = await axios.get('${API_URL}/api/products', { params })
   products.value = res.data.products
   totalPages.value = Math.ceil(res.data.total / limit)
 }
@@ -163,7 +164,7 @@ watch(currentPage, () => {
 })
 
 const fetchCategories = async () => {
-  const res = await axios.get('http://localhost:5000/api/categories')
+  const res = await axios.get('${API_URL}/api/categories')
   categories.value = res.data
 }
 
@@ -228,8 +229,8 @@ const submitEdit = async () => {
     newImages.value.forEach(file => fd.append('images', file))
 
     const url = isCreating.value
-      ? 'http://localhost:5000/api/products'
-      : `http://localhost:5000/api/products/${form.value._id}`
+      ? '${API_URL}/api/products'
+      : `${API_URL}/api/products/${form.value._id}`
 
     const method = isCreating.value ? 'post' : 'put'
 
@@ -264,7 +265,7 @@ const submitEdit = async () => {
 const deleteProduct = async (id: string) => {
   const token = localStorage.getItem('token')
   if (!confirm('Confirmer la suppression ?')) return
-  await axios.delete(`http://localhost:5000/api/products/${id}`, {
+  await axios.delete(`${API_URL}/api/products/${id}`, {
     headers: { Authorization: `Bearer ${token}` }
   })
   products.value = products.value.filter(p => p._id !== id)

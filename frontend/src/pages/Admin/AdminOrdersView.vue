@@ -44,6 +44,7 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import AdminLayout from '@/layouts/AdminLayout.vue'
+import { API_URL } from '@/api'
 
 interface Product {
   productId: string
@@ -80,7 +81,7 @@ const formatDate = (dateStr: string) => {
 const fetchOrders = async () => {
   try {
     const token = localStorage.getItem('token')
-    const res = await axios.get('http://localhost:5000/api/orders', {
+    const res = await axios.get('${API_URL}/api/orders', {
       headers: { Authorization: `Bearer ${token}` }
     })
     orders.value = res.data
@@ -93,7 +94,7 @@ const markAsTreated = async (orderId: string) => {
   try {
     const token = localStorage.getItem('token')
     const res = await axios.put(
-      `http://localhost:5000/api/orders/${orderId}/status`,
+      `${API_URL}/api/orders/${orderId}/status`,
       { status: 'traitée' },
       { headers: { Authorization: `Bearer ${token}` } }
     )

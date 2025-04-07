@@ -199,6 +199,7 @@ import axios from 'axios'
 import { useToast } from 'vue-toastification'
 import emailjs from '@emailjs/browser'
 import type { AxiosError } from 'axios'
+import { API_URL } from '@/api'
 
 const store = useReservationStore()
 const toast = useToast()
@@ -207,7 +208,7 @@ const minDate = new Date().toISOString().split('T')[0]
 
 
 
-const getImage = (img: string) => `http://localhost:5000/${img}`
+const getImage = (img: string) => `${API_URL}/${img}`
 
 const form = ref({
   fullName: '',
@@ -348,7 +349,7 @@ const submitReservation = async () => {
 
     console.log('📤 Payload final envoyé :', payload)
 
-    await axios.post('http://localhost:5000/api/orders', payload)
+    await axios.post('${API_URL}/api/orders', payload)
     await sendEmailJS()
     toast.success('Demande envoyée avec succès ✅')
     store.clearReservation()

@@ -35,7 +35,7 @@ const register = async () => {
   }
 
   try {
-    await axios.post('http://localhost:5000/api/auth/users', {
+    await axios.post('${API_URL}/api/auth/users', {
       email: email.value,
       password: password.value,
       role: role.value

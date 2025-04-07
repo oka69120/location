@@ -29,7 +29,7 @@ watch(() => props.visible, (val) => {
 
 const currentImage = computed(() => props.images[currentIndex.value])
 
-const getImage = (img: string) => `http://localhost:5000/${img}`
+const getImage = (img: string) => `${API_URL}/${img}`
 
 const close = () => emit('close')
 

@@ -74,6 +74,7 @@ import { ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import axios from 'axios'
 import { useReservationStore } from '@/store/reservationStore'
+import { API_URL } from '@/api'
 const reservationStore = useReservationStore()
 const route = useRoute()
 const product = ref<any>(null)
@@ -85,13 +86,13 @@ let quantity = 1
 const showLightbox = ref(false)
 
 const fetchProduct = async () => {
-  const res = await axios.get(`http://localhost:5000/api/products/${route.params.id}`)
+  const res = await axios.get(`${API_URL}/api/products/${route.params.id}`)
   product.value = res.data
   selectedImage.value = product.value.images?.[0] || ''
   selectedImageIndex.value = 0
 }
 
-const getImage = (img: string) => `http://localhost:5000/${img}`
+const getImage = (img: string) => `${API_URL}/${img}`
 
 const selectImage = (index: number) => {
   selectedImageIndex.value = index
