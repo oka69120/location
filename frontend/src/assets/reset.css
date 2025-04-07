@@ -1,0 +1,16 @@
+/* === Mini Reset CSS === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #2a044b;
+  color: #000;
+  line-height: 1.6;
+}
+h2, h1{
+  color: white;
+}

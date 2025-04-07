@@ -1,0 +1,13 @@
+# Node modules
+node_modules/
+dist/
+.env
+
+# Log & debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local build & config
+.vite/
+.DS_Store
